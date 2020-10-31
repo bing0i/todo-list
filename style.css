@@ -5,6 +5,7 @@ html,body{
     margin: 0;
     padding: 0;
     font-size: large;
+    background-color: white;
 }
 
 div#daddy {
@@ -17,17 +18,17 @@ div#daddy {
 }
 
 div#projects {
-    overflow-y:auto;
     text-align: center;
+    overflow-y:auto;
     float: left;
 	width: 30%;
     height:100%;
     box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
 }
 
-div#todos {
-    overflow-y:auto;
+div#todoItems {
     text-align: center;
+    overflow-y:auto;
     float: left;
     display: block;
     width: 70%;
@@ -35,14 +36,12 @@ div#todos {
 }
 
 div.project {
-    text-align: center;
     background-color:#FFEAE5;
     margin: 10px 50px 10px 50px;
     padding: 10px;
 }
 
 div.todo {
-    text-align: center;
     background-color: #FFEAE5;
     margin: 10px 50px 10px 50px;
     padding: 10px;
@@ -56,6 +55,50 @@ button.removeItem {
     color: deeppink;
 }
 
+button.addItem {
+    outline: none;
+    background-color: white;
+    border: none;
+    color: deeppink;
+}
+
 input[type='checkbox'] {
     float: left;
 }
+
+details, summary {
+    outline: none;
+    cursor: pointer;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+div#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+div#modalContent {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+}
+
+div#modalContent h1 {
+    margin: 0;
+}
+
+form#addTodoItem {
+    padding-top: 20px;
+}
+

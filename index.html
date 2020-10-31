@@ -9,27 +9,61 @@
     <body>
         <div id="daddy">
             <div id="projects">
-                <p>Projects</p>
-                <div class="project">
-                    <label  class="title"><input type="checkbox">Title</label>
-                    <button class="removeItem">x</button>
+                <div>
+                    <p>Todos</p>
+                    <input type="text">
+                    <button class="addItem">+</button>
                 </div>
                 <div class="project">
+                    <details>
+                        <summary class="strikethrough">Project
+                            <button class="removeItem">&times;</button>
+                        </summary>
+
+                        <label  class="title">
+                            <input type="checkbox">
+                            Title
+                            <button class="removeItem">&times;</button>
+                        </label>
+                        <br>
+                        <label  class="title">
+                            <input type="checkbox">
+                            Title
+                            <button class="removeItem">&times;</button>
+                        </label>
+                        <br>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="todoItems">
+                <div>
+                    <p>Todos</p>
+                    <button id="showForm">+</button>
+                </div>
+                <div class="todo">
                     <label  class="title"><input type="checkbox">Title</label>
                     <button class="removeItem">x</button>
                 </div>
             </div>
-            
-            <div id="todos">
-                <p>Todos</p>
-                <div class="todo">
-                    <label  class="title"><input type="checkbox">Title</label>
-                    <button class="removeItem">x</button>
-                </div>
-                <div class="todo">
-                    <label  class="title"><input type="checkbox">Title</label>
-                    <button class="removeItem">x</button>
-                </div>
+        </div>
+
+        <div id="modal">
+            <div id="modalContent"">
+                <h1>
+                    Add todo item
+                    <button id="closeForm">&times;</button>
+                </h1>
+
+                <form id="addTodoItemForm">
+                    <label>Title: <input type="text"></label>
+                    <br>
+                    <label>Due date: <input type="date"></label>
+                    <br>
+                    <label>Color: <input type="color"></label>
+                    <br>
+                    <button id="addItemBtnForm">+</button>
+                </form>
             </div>
         </div>
         <script src="../src/index.js"></script>
