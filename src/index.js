@@ -21,7 +21,7 @@ const Dom = () => {
             
             if (inpTextAddTodoItem.value === '')
                 return;
-            
+        
             addNewTodoItem(inpTextAddTodoItem.value);
             inpTextAddTodoItem.value = '';
 
@@ -51,7 +51,7 @@ const Dom = () => {
     const addNewProject = (pjName, pjId) => {
         const project = document.createElement('div');
         project.className = 'project';
-        project.id = 'pj' + pjId;
+        project.id = 'divPj' + pjId;
 
         const details = document.createElement('details');
 
@@ -60,7 +60,7 @@ const Dom = () => {
 
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
-        btnRemove.id = 'pj' + pjId;
+        btnRemove.id = 'btnPj' + pjId;
         btnRemove.textContent = 'x';
         btnRemove.addEventListener('click', () => {
             removeProject(pjId);
@@ -70,7 +70,7 @@ const Dom = () => {
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.id = 'inpAddTodo';
+        input.id = 'inpPj' + pjId;
 
         const btnAdd = document.createElement('button');
         btnAdd.className = 'addItem';
@@ -80,7 +80,9 @@ const Dom = () => {
             if (input.value === '')
                 return;
                 
-            addNewTodo(input.value, pjId);
+            let todoId = data.addTodo(input.id.toString().slice(5), null, [inpTextAddTodoItem.value, '222']);
+
+            addNewTodo(input.value, pjId, todoId);
             input.value = '';
         });
 
@@ -119,29 +121,48 @@ const Dom = () => {
         todoItems.appendChild(todoItem);
     };
 
-    const addNewTodo = (todoName, pjId) => {
+    const addNewTodo = (todoName, pjId, tdId) => {
         const span = document.createElement('span');
         span.className = 'title';
-        span.textContent = todoName
+        span.id = 'spanPj' + pjId + 'spanTd' + tdId;
+        span.textContent = todoName;
 
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
         btnRemove.textContent = 'x';
+        btnRemove.addEventListener('click', () => {
+            removeTodo(pjId, tdId);
+
+            data.removeTodo(pjId, tdId);
+        });
+
+        const br = document.createElement('br');
+        br.id = 'brTd' + tdId;
 
         span.appendChild(btnRemove);
 
-        const project = document.getElementById('pj' + pjId);
+        const project = document.getElementById('divPj' + pjId);
 
         const details = project.firstChild;
         details.appendChild(span);
-        details.appendChild(document.createElement('br'));
+        details.appendChild(br);
     };
 
     const removeProject = (pjId) => {
-        let project = document.getElementById('pj' + pjId);
+        let project = document.getElementById('divPj' + pjId);
 
         projects.removeChild(project);
     };
+
+    const removeTodo = (pjId, tdId) => {
+        let todo = document.getElementById('spanPj' + pjId + 'spanTd' + tdId);
+        let br = document.getElementById('brTd' + tdId);
+
+        let project = document.getElementById('divPj' + pjId);
+        let details = project.firstChild;
+        details.removeChild(todo);
+        details.removeChild(br);
+    }
 
     return {
         addEvents,
@@ -177,13 +198,73 @@ const data = (() => {
         projects[index] = null;
     };
 
+    const addTodo = (pjId, todo, info) => {
+        return projects[pjId].addTodo(todo, info);
+    };
+
+    const removeTodo = (pjId, todoId) => {
+        projects[pjId].removeTodo(todoId);
+    };
+
     return {
         addProject,
         removeProject,
+        addTodo,
+        removeTodo,
     }
 })();
 
 const Project = (t, d) => {
+    let _tilte = t;
+    let _dueDate = d;
+
+    let todos = [];
+
+    const getTitle = () => {
+        return _tilte;
+    };
+
+    const getDueDate = () => {
+        return _dueDate;
+    };
+
+    const addTodo = (todo, info) => {
+        let index = todos.indexOf(null);
+
+        if (index > -1) {
+            if (todo != null)
+                todos[index] = todo;
+            else
+                todos[index] = Todo(info[0], info[1]);
+        }
+        else {
+            if (todo != null)
+                todos.push(todo);
+            else
+                todos.push(Todo(info[0], info[1]));
+        }
+
+        if (index === -1)
+            index = todos.length - 1;
+
+        console.log(todos);
+        return index;
+    };
+
+    const removeTodo = (tdId) => {
+        todos[tdId] = null;
+        console.log(todos);
+    };
+    
+    return {
+        getTitle,
+        getDueDate,
+        addTodo,
+        removeTodo,
+    }
+};
+
+const Todo = (t, d) => {
     let _tilte = t;
     let _dueDate = d;
 
@@ -198,7 +279,7 @@ const Project = (t, d) => {
     return {
         getTitle,
         getDueDate,
-    };
+    }
 };
 
 const d = Dom();
