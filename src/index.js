@@ -11,7 +11,7 @@ const Dom = () => {
             
             let pjIndex = data.addProject(null, [inpAddProject.value, '45']);
 
-            addNewProject(inpAddProject.value, pjIndex);
+            addProject(inpAddProject.value, pjIndex);
             inpAddProject.value = '';
         });
 
@@ -21,8 +21,16 @@ const Dom = () => {
             
             if (inpTextAddTodoItem.value === '')
                 return;
+
+            let strClassName = inpTextAddTodoItem.className;
+            let plus = strClassName.indexOf('+');
+
+            let pjId = strClassName.slice(8, plus);
+            let tdId = strClassName.slice(plus + 9); 
         
-            addNewTodoItem(inpTextAddTodoItem.value);
+            let tdiId = data.addTodoItem(pjId, tdId, null, [inpTextAddTodoItem.value, 'asdd']);
+
+            addTodoItem(inpTextAddTodoItem.value, pjId, tdId, tdiId);
             inpTextAddTodoItem.value = '';
 
             let modalContent = document.getElementById('modalContent');
@@ -48,7 +56,7 @@ const Dom = () => {
         });
     };
 
-    const addNewProject = (pjName, pjId) => {
+    const addProject = (pjName, pjId) => {
         const project = document.createElement('div');
         project.className = 'project';
         project.id = 'divPj' + pjId;
@@ -82,7 +90,7 @@ const Dom = () => {
                 
             let todoId = data.addTodo(input.id.toString().slice(5), null, [inpTextAddTodoItem.value, '222']);
 
-            addNewTodo(input.value, pjId, todoId);
+            addTodo(input.value, pjId, todoId);
             input.value = '';
         });
 
@@ -98,9 +106,10 @@ const Dom = () => {
         projects.appendChild(project);
     };
 
-    const addNewTodoItem = (todoItemName) => {
+    const addTodoItem = (todoItemName, pjId, tdId, tdiId) => {
         const todoItem = document.createElement('div');
-        todoItem.className = 'todo';
+        todoItem.className = 'todoItem';
+        todoItem.id = 'divPj' + pjId + '+divTd' + tdId + '+divTdi' + tdiId;
 
         const label = document.createElement('label');
         label.className = 'title';
@@ -112,6 +121,10 @@ const Dom = () => {
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
         btnRemove.textContent = 'x';
+        btnRemove.addEventListener('click', () => {
+            removeTodoItem(pjId, tdId, tdiId);
+            data.removeTodoItem(pjId, tdId, tdiId);
+        });
 
         label.appendChild(input);
         todoItem.appendChild(label);
@@ -121,11 +134,15 @@ const Dom = () => {
         todoItems.appendChild(todoItem);
     };
 
-    const addNewTodo = (todoName, pjId, tdId) => {
+    const addTodo = (todoName, pjId, tdId) => {
         const span = document.createElement('span');
-        span.className = 'title';
+        span.className = 'todo';
         span.id = 'spanPj' + pjId + 'spanTd' + tdId;
         span.textContent = todoName;
+        span.addEventListener('click', () => {
+            const inpTextAddTodoItem = document.getElementById('inpTextAddTodoItem');
+            inpTextAddTodoItem.className = 'inpTdiPj' + pjId + '+' + 'inpTdiTd' + tdId;
+        });
 
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
@@ -162,7 +179,13 @@ const Dom = () => {
         let details = project.firstChild;
         details.removeChild(todo);
         details.removeChild(br);
-    }
+    };
+
+    const removeTodoItem = (pjId, tdId, tdiId) => {
+        let todoItem = document.getElementById('divPj' + pjId + '+divTd' + tdId + '+divTdi' + tdiId);
+        let todoItems = document.getElementById('todoItems');
+        todoItems.removeChild(todoItem);
+    };
 
     return {
         addEvents,
@@ -206,11 +229,21 @@ const data = (() => {
         projects[pjId].removeTodo(todoId);
     };
 
+    const addTodoItem = (pjId, tdId, todoItem, info) => {
+        return projects[pjId].addTodoItem(tdId, todoItem, info);
+    };
+
+    const removeTodoItem = (pjId, tdId, tdiId) => {
+        projects[pjId].removeTodoItem(tdId, tdiId);
+    };
+
     return {
         addProject,
         removeProject,
         addTodo,
         removeTodo,
+        addTodoItem,
+        removeTodoItem,
     }
 })();
 
@@ -247,13 +280,19 @@ const Project = (t, d) => {
         if (index === -1)
             index = todos.length - 1;
 
-        console.log(todos);
         return index;
     };
 
     const removeTodo = (tdId) => {
         todos[tdId] = null;
-        console.log(todos);
+    };
+
+    const addTodoItem = (tdId, todoItem, info) => {
+        return todos[tdId].addTodoItem(todoItem, info);
+    };
+
+    const removeTodoItem = (tdId, tdiId) => {
+        todos[tdId].removeTodoItem(tdiId);
     };
     
     return {
@@ -261,10 +300,60 @@ const Project = (t, d) => {
         getDueDate,
         addTodo,
         removeTodo,
+        addTodoItem,
+        removeTodoItem,
     }
 };
 
 const Todo = (t, d) => {
+    let _tilte = t;
+    let _dueDate = d;
+
+    let todoItems = [];
+
+    const getTitle = () => {
+        return _tilte;
+    };
+
+    const getDueDate = () => {
+        return _dueDate;
+    };
+
+    const addTodoItem = (todoItem, info) => {
+        let index = todoItems.indexOf(null);
+
+        if (index > -1) {
+            if (todoItem != null)
+                todoItems[index] = todoItem;
+            else
+                todoItems[index] = TodoItem(info[0], info[1]);
+        }
+        else {
+            if (todoItem != null)
+                todoItems.push(todoItem);
+            else
+                todoItems.push(TodoItem(info[0], info[1]));
+        }
+
+        if (index === -1)
+            index = todoItems.length - 1;
+
+        return index;
+    };
+
+    const removeTodoItem = (tdiId) => {
+        todoItems[tdiId] = null;
+    };
+    
+    return {
+        getTitle,
+        getDueDate,
+        addTodoItem,
+        removeTodoItem,
+    }
+};
+
+const TodoItem = (t, d) => {
     let _tilte = t;
     let _dueDate = d;
 
