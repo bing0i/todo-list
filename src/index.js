@@ -1,5 +1,5 @@
-const DisplayDOM = () => {
-    const projects = [];
+const Dom = () => {
+    const projects = document.getElementById('projects');
 
     const addEvents = () => {
         const btnAddProject = document.getElementById('btnAddProject');
@@ -9,9 +9,9 @@ const DisplayDOM = () => {
             if (inpAddProject.value === '')
                 return;
             
-            projects.push(inpAddProject.value);
+            let pjIndex = data.addProject(null, [inpAddProject.value, '45']);
 
-            addNewProject(inpAddProject.value, projects[projects.length - 1]);
+            addNewProject(inpAddProject.value, pjIndex);
             inpAddProject.value = '';
         });
 
@@ -25,6 +25,22 @@ const DisplayDOM = () => {
             addNewTodoItem(inpTextAddTodoItem.value);
             inpTextAddTodoItem.value = '';
 
+            let modalContent = document.getElementById('modalContent');
+            modalContent.style.visibility = "hidden";
+            let modal = document.getElementById('modal');
+            modal.style.visibility = "hidden";
+        });
+
+        let btnShowForm = document.getElementById('showForm');
+        btnShowForm.addEventListener('click', () => {
+            let modalContent = document.getElementById('modalContent');
+            modalContent.style.visibility = "visible";
+            let modal = document.getElementById('modal');
+            modal.style.visibility = "visible";
+        });
+
+        let btnHideForm = document.getElementById('closeForm');
+        btnHideForm.addEventListener('click', () => {
             let modalContent = document.getElementById('modalContent');
             modalContent.style.visibility = "hidden";
             let modal = document.getElementById('modal');
@@ -44,7 +60,13 @@ const DisplayDOM = () => {
 
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
+        btnRemove.id = 'pj' + pjId;
         btnRemove.textContent = 'x';
+        btnRemove.addEventListener('click', () => {
+            removeProject(pjId);
+
+            data.removeProject(pjId);
+        });
 
         const input = document.createElement('input');
         input.type = 'text';
@@ -71,7 +93,6 @@ const DisplayDOM = () => {
 
         project.appendChild(details);
 
-        const projects = document.getElementById('projects');
         projects.appendChild(project);
     };
 
@@ -116,30 +137,69 @@ const DisplayDOM = () => {
         details.appendChild(document.createElement('br'));
     };
 
+    const removeProject = (pjId) => {
+        let project = document.getElementById('pj' + pjId);
+
+        projects.removeChild(project);
+    };
+
     return {
         addEvents,
     }
 };
 
-const d = DisplayDOM();
-d.addEvents();
+const data = (() => {
+    let projects = [];
 
-const toggleModalAddTodoItemForm = () => {
-    let btnShow = document.getElementById('showForm');
-    btnShow.addEventListener('click', () => {
-        let modalContent = document.getElementById('modalContent');
-        modalContent.style.visibility = "visible";
-        let modal = document.getElementById('modal');
-        modal.style.visibility = "visible";
-    });
+    const addProject = (pj, info) => {
+        let index = projects.indexOf(null);
 
-    let btnHide = document.getElementById('closeForm');
-    btnHide.addEventListener('click', () => {
-        let modalContent = document.getElementById('modalContent');
-        modalContent.style.visibility = "hidden";
-        let modal = document.getElementById('modal');
-        modal.style.visibility = "hidden";
-    });
+        if (index > -1) {
+            if (pj != null)
+                projects[index] = pj;
+            else
+                projects[index] = Project(info[0], info[1]);
+        }
+        else {
+            if (pj != null)
+                projects.push(pj);
+            else
+                projects.push(Project(info[0], info[1]));
+        }
+
+        if (index === -1)
+            index = projects.length - 1;
+
+        return index;
+    };
+
+    const removeProject = (index) => {
+        projects[index] = null;
+    };
+
+    return {
+        addProject,
+        removeProject,
+    }
+})();
+
+const Project = (t, d) => {
+    let _tilte = t;
+    let _dueDate = d;
+
+    const getTitle = () => {
+        return _tilte;
+    };
+
+    const getDueDate = () => {
+        return _dueDate;
+    };
+    
+    return {
+        getTitle,
+        getDueDate,
+    };
 };
 
-toggleModalAddTodoItemForm();
+const d = Dom();
+d.addEvents();
