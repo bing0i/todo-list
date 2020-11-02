@@ -9,41 +9,17 @@
     <body>
         <div id="daddy">
             <div id="projects">
-                <div>
-                    <p>Todos</p>
+                <div id="projectsTitle">
+                    <p>Projects</p>
                     <input id="inpAddProject" type="text">
                     <button id="btnAddProject" class="addItem">+</button>
-                </div>
-                <div class="project">
-                    <details>
-                        <summary class="strikethrough">Project
-                            <button class="removeItem">&times;</button>
-                        </summary>
-
-                        <label  class="title">
-                            <input type="checkbox">
-                            Title
-                            <button class="removeItem">&times;</button>
-                        </label>
-                        <br>
-                        <label  class="title">
-                            <input type="checkbox">
-                            Title
-                            <button class="removeItem">&times;</button>
-                        </label>
-                        <br>
-                    </details>
                 </div>
             </div>
             
             <div id="todoItems">
-                <div>
+                <div id="todoItemsTitle">
                     <p>Todos</p>
                     <button id="showForm" class="addItem">+</button>
-                </div>
-                <div class="todo">
-                    <label  class="title"><input type="checkbox">Title</label>
-                    <button class="removeItem">x</button>
                 </div>
             </div>
         </div>
@@ -52,7 +28,7 @@
             <div id="modalContent"">
                 <h1>
                     Add todo item
-                    <button id="closeForm">&times;</button>
+                    <button id="closeForm" class="removeItem">&times;</button>
                 </h1>
 
                 <form id="addTodoItemForm">
@@ -62,7 +38,7 @@
                     <br>
                     <label>Color: <input type="color" id="inpColorAddTodoItem"></label>
                     <br>
-                    <button type="button" id="btnAddTodoItem">+</button>
+                    <button type="button" id="btnAddTodoItem" class="addItem">+</button>
                 </form>
             </div>
         </div>

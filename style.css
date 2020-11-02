@@ -1,4 +1,4 @@
-html,body{
+html, body{
     height:100%;
     overflow: hidden;
     font-family: 'Itim', cursive;
@@ -33,6 +33,14 @@ div#todoItems {
     height: 100%;
 }
 
+div#projectsTitle {
+    text-align: center;
+}
+
+div#todoItemsTitle {
+    text-align: center;
+}
+
 div.project {
     background-color:#FFEAE5;
     margin: 10px 50px 10px 50px;
@@ -56,8 +64,14 @@ button.removeItem {
 button.addItem {
     outline: none;
     background-color: white;
-    border: none;
+    border: solid 2px deeppink;
     color: deeppink;
+    font-size: 20px;
+}
+
+button.addItem:hover {
+    background-color: deeppink;
+    color: white;
 }
 
 input[type='checkbox'] {
