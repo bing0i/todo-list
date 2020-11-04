@@ -1,11 +1,11 @@
 html, body {
     height:100%;
     overflow: hidden;
-    font-family: 'Itim', cursive;
+    font-family: 'Dosis', sans-serif;
     margin: 0;
     padding: 0;
-    font-size: large;
     background-color: white;
+    font-size: 15px;
 }
 
 div#daddy {
@@ -15,14 +15,18 @@ div#daddy {
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
+    border-radius: 20px;
 }
 
 div#projects {
     overflow-y:auto;
     float: left;
 	width: 30%;
-    height:100%;
-    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+    height: 100%;
+    /* box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19); */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 div#todoItems {
@@ -31,6 +35,8 @@ div#todoItems {
     display: block;
     width: 70%;
     height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 div#projectsTitle {
@@ -42,45 +48,119 @@ div#todoItemsTitle {
 }
 
 div.project {
-    background-color:#FFEAE5;
-    margin: 10px 50px 10px 50px;
-    padding: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+div.project:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 div.todo {
-    background-color: #FFEAE5;
-    margin: 10px 50px 10px 50px;
-    padding: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+}
+
+div.todo:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: tomato;
+    font-weight: bold;
+}
+
+div.chosenProject {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+div.chosenTodo {
+    color: white;
+    background-color: tomato;
+    font-weight: bold;
+}
+
+div.divInpBtn {
+    text-align: center;
 }
 
 button.removeItem {
+    cursor: pointer;
     float: right;
     outline: none;
-    background-color: #FFEAE5;
     border: none;
-    color: deeppink;
+    color: teal;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+button.removeItem:hover {
+    border-radius: 10px;
+    background-color: tomato;
 }
 
 button.addItem {
     outline: none;
-    background-color: white;
-    border: solid 2px deeppink;
-    color: deeppink;
+    background-color: transparent;
+    border: none;
+    color: tomato;
     font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
 }
 
 button.addItem:hover {
-    background-color: deeppink;
-    color: white;
+    background-color: tomato;
+    color: teal;
+    border-radius: 10px;
 }
 
 input[type='checkbox'] {
     float: left;
 }
 
+input[type='text'] {
+    font-family: 'Dosis', sans-serif;
+    width: 70%;
+    border: none;
+    border-bottom: solid 1px black;
+    outline: none;
+    margin-right: 10px;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+input[type='text']:hover {
+    border-bottom: solid 1px tomato;
+}
+
+input[type='text']:focus {
+    border-bottom: solid 1px tomato;
+}
+
 details, summary {
     outline: none;
     cursor: pointer;
+}
+
+summary:hover {
+    color: tomato;
+}
+
+details summary::-webkit-details-marker {
+    font-size: 100%;
 }
 
 .strikethrough {
