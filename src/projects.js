@@ -1,8 +1,16 @@
-import {Project} from './Project'
-import {general} from './general'
+import {Project} from './Project';
+import {general} from './general';
 
 const projects = (() => {
     let _projects = [];
+
+    const getProject = (index) => {
+        return _projects[index];
+    };
+
+    const getProjectsLength = () => {
+        return _projects.length;
+    };
 
     const addProject = (info) => {
         let index = general.getNullIndex(_projects);
@@ -31,6 +39,8 @@ const projects = (() => {
     };
 
     return {
+        getProject,
+        getProjectsLength,
         addProject,
         removeProject,
         addTodo,

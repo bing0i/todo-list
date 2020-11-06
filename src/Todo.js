@@ -1,10 +1,18 @@
-import {TodoItem} from './TodoItem'
-import {general} from './general'
+import {TodoItem} from './TodoItem';
+import {general} from './general';
 
 const Todo = (t, d) => {
     let _tilte = t;
     let _dueDate = d;
     let _todoItems = [];
+
+    const getTodoItem = (index) => {
+        return _todoItems[index];
+    };
+
+    const getTodoItemsLength = () => {
+        return _todoItems.length;
+    };
 
     const getTitle = () => {
         return _tilte;
@@ -25,6 +33,8 @@ const Todo = (t, d) => {
     };
     
     return {
+        getTodoItem,
+        getTodoItemsLength,
         getTitle,
         getDueDate,
         addTodoItem,

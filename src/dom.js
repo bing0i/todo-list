@@ -1,6 +1,6 @@
-import {domProject} from './domProject'
-import {domTodoItem} from './domTodoItem'
-import {domModal} from './domModal'
+import {domProject} from './domProject';
+import {domTodoItem} from './domTodoItem';
+import {domModal} from './domModal';
 
 const dom = (() => {
 

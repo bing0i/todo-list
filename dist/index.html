@@ -4,41 +4,148 @@
         <meta charset="UTF-8">
         <title>Courgette's Todo List</title>
         <link rel="stylesheet" href="./style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet">    
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet"> 
     </head>
     <body>
         <div id="daddy">
             <div id="projects">
                 <div id="projectsTitle">
-                    <p>Projects</p>
-                    <input type="text" id="inpAddProject" placeholder="Type a project name" spellcheck="false">
-                    <button id="btnAddProject" class="addItem">+</button>
+                    <span>
+                        Projects
+                        <button id="showAddProjectForm" class="addItem">+</button>
+                    </span>
+                    <!-- <input type="text" id="inpAddProject" placeholder="Type a project name" spellcheck="false"> -->
+                </div>
+                <div class="project" id="divPj0">
+                    <details>
+                        <summary>
+                            Helloooo
+                            <button class="removeItem" id="btnPj0">x</button>
+                        </summary>
+                        <div class="divInpBtn">
+                            <input type="text" id="inpPj0">
+                            <button class="addItem" id="btnTdPj0">+</button>
+                        </div>
+                        <div class="todo" id="divPj0+divTd0">
+                            <span>
+                                How are you?
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                        <div class="todo" id="divPj0+divTd1">
+                            <span>
+                                Nice to meet you
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                    </details>
+                </div>
+                <div class="project chosenProject" id="divPj1">
+                    <details open="">
+                        <summary>
+                            Hii, again
+                            <button class="removeItem" id="btnPj1">x</button>
+                        </summary>
+                        <div class="divInpBtn">
+                            <input type="text" id="inpPj1">
+                            <button class="addItem" id="btnTdPj1">+</button>
+                        </div>
+                        <div class="todo chosenTodo" id="divPj1+divTd0">
+                            <span>
+                                What would you like to do?
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                        <div class="todo" id="divPj1+divTd1">
+                            <span>
+                                Let's add something
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                        <div class="todo" id="divPj1+divTd2">
+                            <span>
+                                By clicking blue buttons
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                        <div class="todo" id="divPj1+divTd3">
+                            <span>
+                                Delete something with 'x' buttons
+                                <button class="removeItem">x</button>
+                            </span>
+                        </div>
+                    </details>
                 </div>
             </div>
             
             <div id="todoItems">
                 <div id="todoItemsTitle">
-                    <p>Todo Items</p>
-                    <button id="showForm" class="addItem">+</button>
+                    <span>
+                        Todo Items
+                        <button id="showAddTodoItemForm" class="addItem">+</button>
+                    </span>
+                </div>
+                <div id="items">
+                    <div class="todoItem" id="divPj1+divTd0+divTdi0">
+                        <label class="title">Take a coffee<input type="checkbox"></label>
+                        <button class="removeItem">x</button>
+                    </div>
+                    <div class="todoItem" id="divPj1+divTd0+divTdi1">
+                        <label class="title">Eat Phoooooooooo<input type="checkbox"></label>
+                        <button class="removeItem">x</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="modal">
-            <div id="modalContent"">
-                <h1>
-                    Add todo item
-                    <button id="closeForm" class="removeItem">&times;</button>
-                </h1>
+        <div class="modal" id="modalAddTodoItem">
+            <div class="modalContent" id="modalContentAddTodoItem">
+                <div class="modalTitle">
+                    <span>
+                        Todo Item
+                        <button id="closeAddTodoItemForm" class="removeItem">&times;</button>
+                    </span>
+                </div>
+                
+                <form class="modalForm" id="addTodoItemForm">
+                    <div class="formTitle">
+                        <label>Title<input type="text" id="inpTextAddTodoItem"></label>
+                    </div>
+                    <!-- <div class="formDueDate">
+                        <label>Due date<input type="date" id="inpDateAddTodoItem"></label>
+                    </div>
+                    <div class="formColor">
+                        <label>Color<input type="color" id="inpColorAddTodoItem"></label>
+                    </div> -->
+                    <div class="divBtnAdd">
+                        <button type="button" id="btnAddTodoItem" class="addItem">+</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-                <form id="addTodoItemForm">
-                    <label>Title: <input type="text" id="inpTextAddTodoItem"></label>
-                    <br>
-                    <label>Due date: <input type="date" id="inpDateAddTodoItem"></label>
-                    <br>
-                    <label>Color: <input type="color" id="inpColorAddTodoItem"></label>
-                    <br>
-                    <button type="button" id="btnAddTodoItem" class="addItem">+</button>
+        <div class="modal" id="modalAddProject">
+            <div class="modalContent" id="modalContentAddProject">
+                <div class="modalTitle">
+                    <span>
+                        Project
+                        <button id="closeAddProjectForm" class="removeItem">&times;</button>
+                    </span>
+                </div>
+                
+                <form class="modalForm" id="addProjectForm">
+                    <div class="formTitle">
+                        <label>Title<input type="text" id="inpTextAddProject"></label>
+                    </div>
+                    <!-- <div class="formDueDate">
+                        <label>Due date<input type="date" id="inpDateAddProject"></label>
+                    </div>
+                    <div class="formColor">
+                        <label>Color<input type="color" id="inpColorAddProject"></label>
+                    </div> -->
+                    <div class="divBtnAdd">
+                        <button type="button" id="btnAddProject" class="addItem">+</button>
+                    </div>
                 </form>
             </div>
         </div>

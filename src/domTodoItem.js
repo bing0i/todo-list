@@ -1,6 +1,5 @@
-import {getIds} from './getIds'
-import {projects} from './projects'
-import {domModal} from './domModal'
+import {projects} from './projects';
+import {domModal} from './domModal';
 
 const domTodoItem = (() => {
     const init = () => {
@@ -14,12 +13,15 @@ const domTodoItem = (() => {
             if (inpTextAddTodoItem.value === '')
                 return;
 
-            let ids = getIds.parseTodoId(inpTextAddTodoItem.className);
-            let tdiId = projects.addTodoItem(ids[0], ids[1], [inpTextAddTodoItem.value, 'asdd']);
-            addTodoItem(inpTextAddTodoItem.value, ids[0], ids[1], tdiId);
+            let plus = inpTextAddTodoItem.className.indexOf('+');
+            let pjId = inpTextAddTodoItem.className.slice(8, plus);
+            let tdId = inpTextAddTodoItem.className.slice(plus + 9); 
+
+            let tdiId = projects.addTodoItem(pjId, tdId, [inpTextAddTodoItem.value, 'asdd']);
+            addTodoItem(inpTextAddTodoItem.value, pjId, tdId, tdiId);
 
             inpTextAddTodoItem.value = '';
-            domModal.toggleModal('hidden');
+            domModal.toggleModal('hidden', 'modalContentAddTodoItem', 'modalAddTodoItem');
         });
     };
 
@@ -37,7 +39,7 @@ const domTodoItem = (() => {
 
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
-        btnRemove.textContent = '-';
+        btnRemove.textContent = 'x';
         btnRemove.addEventListener('click', () => {
             removeTodoItem(pjId, tdId, tdiId);
             projects.removeTodoItem(pjId, tdId, tdiId);
@@ -47,8 +49,17 @@ const domTodoItem = (() => {
         todoItem.appendChild(label);
         todoItem.appendChild(btnRemove);
 
-        const todoItems = document.getElementById('todoItems');
-        todoItems.appendChild(todoItem);
+        const divItems = document.getElementById('items');
+        if (divItems === null) {
+            const divItems = document.createElement('div');
+            divItems.id = 'items';
+            divItems.appendChild(todoItem);
+            
+            const todoItems = document.getElementById('todoItems');
+            todoItems.appendChild(divItems);
+        } else {
+            divItems.appendChild(todoItem);
+        }
     };
 
     const removeTodoItem = (pjId, tdId, tdiId) => {
@@ -59,6 +70,7 @@ const domTodoItem = (() => {
 
     return {
         init,
+        addTodoItem,
     }
 })();
 

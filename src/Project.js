@@ -1,10 +1,14 @@
-import {Todo} from './Todo'
-import {general} from './general'
+import {Todo} from './Todo';
+import {general} from './general';
 
 const Project = (t, d) => {
     let _tilte = t;
     let _dueDate = d;
     let _todos = [];
+
+    const getTodo = (index) => {
+        return _todos[index];
+    };
 
     const getTitle = () => {
         return _tilte;
@@ -33,6 +37,7 @@ const Project = (t, d) => {
     };
     
     return {
+        getTodo,
         getTitle,
         getDueDate,
         addTodo,

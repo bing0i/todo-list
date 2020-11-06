@@ -4,21 +4,32 @@ const domModal = (() => {
     };
 
     const attachEventsToggleForm = () => {
-        const btnShowForm = document.getElementById('showForm');
-        btnShowForm.addEventListener('click', () => {
-            toggleModal('visible');
+        const btnShowAddTodoItemForm = document.getElementById('showAddTodoItemForm');
+        btnShowAddTodoItemForm.addEventListener('click', () => {
+            if (document.getElementById('inpTextAddTodoItem').className === '')
+                return;
+                
+            toggleModal('visible', 'modalContentAddTodoItem', 'modalAddTodoItem');
+        });
+        const btnHideAddTodoItemForm = document.getElementById('closeAddTodoItemForm');
+        btnHideAddTodoItemForm.addEventListener('click', () => {
+            toggleModal('hidden', 'modalContentAddTodoItem', 'modalAddTodoItem');
         });
 
-        const btnHideForm = document.getElementById('closeForm');
-        btnHideForm.addEventListener('click', () => {
-            toggleModal('hidden');
+        const btnShowAddProjectForm = document.getElementById('showAddProjectForm');
+        btnShowAddProjectForm.addEventListener('click', () => {
+            toggleModal('visible', 'modalContentAddProject', 'modalAddProject');
+        });
+        const btnHideAddProjectForm = document.getElementById('closeAddProjectForm');
+        btnHideAddProjectForm.addEventListener('click', () => {
+            toggleModal('hidden', 'modalContentAddProject', 'modalAddProject');
         });
     };
 
-    const toggleModal = (value) => {
-        const modalContent = document.getElementById('modalContent');
+    const toggleModal = (value, idModalContent, idModal) => {
+        const modalContent = document.getElementById(idModalContent);
         modalContent.style.visibility = value;
-        const modal = document.getElementById('modal');
+        const modal = document.getElementById(idModal);
         modal.style.visibility = value;
     };
 

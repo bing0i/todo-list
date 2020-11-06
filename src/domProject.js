@@ -1,5 +1,6 @@
-import {domTodo} from './domTodo'
-import {projects} from './projects'
+import {domTodo} from './domTodo';
+import {projects} from './projects';
+import {domModal} from './domModal';
 
 const domProject = (() => {
     const init = () => {
@@ -9,14 +10,16 @@ const domProject = (() => {
     const attachEventAddProject = () => {
         const btnAddProject = document.getElementById('btnAddProject');
         btnAddProject.addEventListener('click', () => {
-            const inpAddProject = document.getElementById('inpAddProject');
-            if (inpAddProject.value === '')
+            const inpTextAddProject = document.getElementById('inpTextAddProject');
+            if (inpTextAddProject.value === '')
                 return;
             
-            let pjIndex = projects.addProject([inpAddProject.value, '45']);
-            addProject(inpAddProject.value, pjIndex);
+            let pjIndex = projects.addProject([inpTextAddProject.value, '45']);
+            addProject(inpTextAddProject.value, pjIndex);
 
-            inpAddProject.value = '';
+            inpTextAddProject.value = '';
+
+            domModal.toggleModal('hidden', 'modalContentAddProject', 'modalAddProject');
         });
     };
 
@@ -36,7 +39,7 @@ const domProject = (() => {
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
         btnRemove.id = 'btnPj' + pjId;
-        btnRemove.textContent = '-';
+        btnRemove.textContent = 'x';
         btnRemove.addEventListener('click', () => {
             removeProject(pjId);
 
@@ -50,7 +53,7 @@ const domProject = (() => {
         const btnAdd = document.createElement('button');
         btnAdd.className = 'addItem';
         btnAdd.textContent = '+';
-        btnAdd.id = 'btnAddTodo';
+        btnAdd.id = 'btnTdPj' + pjId;
         btnAdd.addEventListener('click', () => {
             if (input.value === '')
                 return;

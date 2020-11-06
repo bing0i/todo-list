@@ -1,4 +1,6 @@
-import {projects} from './projects'
+import {projects} from './projects';
+import {domTodoItem} from './domTodoItem';
+
 
 const domTodo = (() => {
     const init = () => {
@@ -18,13 +20,35 @@ const domTodo = (() => {
                     todos[i].className = todos[i].className.slice(0, todos[i].className.indexOf('chosenTodo') - 1);
             }
             element.className += ' chosenTodo';
+
+            let plus = String(element.id).indexOf('+');
+            let pjId = String(element.id).slice(5, plus);
+            let tdId = String(element.id).slice(plus + 6);
+            showTodoItems(pjId, tdId);
+        }
+    };
+
+    const showTodoItems = (pjId, tdId) => {
+        let todoItems = document.getElementById('todoItems');
+        if (todoItems.lastChild.id === 'items')
+            todoItems.removeChild(todoItems.lastChild);
+
+        let project = projects.getProject(pjId);
+        let todo = project.getTodo(tdId);
+        for (let i = 0; i < todo.getTodoItemsLength(); ++i) {
+            domTodoItem.addTodoItem(
+                todo.getTodoItem(i).getTitle(), 
+                pjId, 
+                tdId,
+                i,
+            );
         }
     };
 
     const addTodo = (todoName, pjId, tdId) => {
         const div = document.createElement('div');
         div.className = 'todo';
-        div.id = 'divPj' + pjId + 'divTd' + tdId;
+        div.id = 'divPj' + pjId + '+divTd' + tdId;
         div.addEventListener('click', () => {
             const inpTextAddTodoItem = document.getElementById('inpTextAddTodoItem');
             inpTextAddTodoItem.className = 'inpTdiPj' + pjId + '+' + 'inpTdiTd' + tdId;
@@ -37,7 +61,7 @@ const domTodo = (() => {
         
         const btnRemove = document.createElement('button');
         btnRemove.className = 'removeItem';
-        btnRemove.textContent = '-';
+        btnRemove.textContent = 'x';
         btnRemove.addEventListener('click', () => {
             removeTodo(pjId, tdId);
 
@@ -53,7 +77,7 @@ const domTodo = (() => {
     };
 
     const removeTodo = (pjId, tdId) => {
-        const todo = document.getElementById('divPj' + pjId + 'divTd' + tdId);
+        const todo = document.getElementById('divPj' + pjId + '+divTd' + tdId);
         const project = document.getElementById('divPj' + pjId);
         const details = project.firstChild;
         details.removeChild(todo);

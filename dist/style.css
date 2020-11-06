@@ -1,11 +1,15 @@
+* {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 200;
+    font-size: 17px;
+}
+
 html, body {
     height:100%;
     overflow: hidden;
-    font-family: 'Dosis', sans-serif;
     margin: 0;
     padding: 0;
     background-color: white;
-    font-size: 15px;
 }
 
 div#daddy {
@@ -23,10 +27,10 @@ div#projects {
     float: left;
 	width: 30%;
     height: 100%;
-    /* box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19); */
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
 }
 
 div#todoItems {
@@ -40,11 +44,27 @@ div#todoItems {
 }
 
 div#projectsTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
+div#projectsTitle span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ee3e38;
+}
+
 div#todoItemsTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
+}
+
+div#todoItemsTitle span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ee3e38;
 }
 
 div.project {
@@ -61,7 +81,7 @@ div.project:hover {
 
 div.todo {
     margin-top: 10px;
-    padding-left: 10px;
+    padding-left: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 15px;
@@ -69,7 +89,7 @@ div.todo {
 
 div.todo:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    color: tomato;
+    color: #2a9df4;
     font-weight: bold;
 }
 
@@ -79,8 +99,35 @@ div.chosenProject {
 
 div.chosenTodo {
     color: white;
-    background-color: tomato;
+    background-color: #2a9df4;
+}
+
+div.chosenTodo span {
     font-weight: bold;
+}
+
+div.todoItem {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+}
+
+div.todoItem:hover {
+    background-color: #2a9df4;
+}
+
+div.todoItem:hover label {
+    font-weight: bold;
+    
+    color: white;
+}
+
+div.todoItem label {
+    margin-left: 20px;
 }
 
 div.divInpBtn {
@@ -92,7 +139,7 @@ button.removeItem {
     float: right;
     outline: none;
     border: none;
-    color: teal;
+    color: rgba(0, 0, 0, 0.2);
     font-size: 20px;
     font-weight: bold;
     background-color: transparent;
@@ -104,26 +151,27 @@ button.removeItem {
 
 button.removeItem:hover {
     border-radius: 10px;
-    background-color: tomato;
+    background-color: #ee3e38;
+    color: #2a9df4;
 }
 
 button.addItem {
     outline: none;
     background-color: transparent;
     border: none;
-    color: tomato;
+    color: #2a9df4;
     font-size: 20px;
     font-weight: bold;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
     padding-top: 5px;
     padding-bottom: 5px;
     cursor: pointer;
 }
 
 button.addItem:hover {
-    background-color: tomato;
-    color: teal;
+    background-color: #2a9df4;
+    color: #ee3e38;
     border-radius: 10px;
 }
 
@@ -132,8 +180,6 @@ input[type='checkbox'] {
 }
 
 input[type='text'] {
-    font-family: 'Dosis', sans-serif;
-    width: 70%;
     border: none;
     border-bottom: solid 1px black;
     outline: none;
@@ -143,11 +189,7 @@ input[type='text'] {
 }
 
 input[type='text']:hover {
-    border-bottom: solid 1px tomato;
-}
-
-input[type='text']:focus {
-    border-bottom: solid 1px tomato;
+    border-bottom: solid 1px #2a9df4;
 }
 
 details, summary {
@@ -156,18 +198,19 @@ details, summary {
 }
 
 summary:hover {
-    color: tomato;
+    color: #ee3e38;
+    font-weight: bold;
 }
 
 details summary::-webkit-details-marker {
     font-size: 100%;
 }
 
-.strikethrough {
+/* .strikethrough {
     text-decoration: line-through;
-}
+} */
 
-div#modal {
+div.modal {
     visibility: hidden;
     position: fixed;
     top: 0;
@@ -177,21 +220,71 @@ div#modal {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-div#modalContent {
+div.modalContent {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
     background-color: white;
-    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-div#modalContent h1 {
-    margin: 0;
+div.modalTitle {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 5px;
 }
 
-form#addTodoItem {
+div.modalTitle span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ee3e38;
+}
+
+form.modalForm {
     padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 15px;
+}
+
+form.modalForm div {
+    margin-bottom: 20px;
+}
+
+form.modalForm div label {
+    color: #2a9df4;
+}
+
+form.modalForm div input {
+    float: right;
+    margin-left: 10px;
+}
+
+form.modalForm div input[type="date"] {
+    border: none;
+    outline: none;
+}
+
+form.modalForm div input[type="date"]:hover {
+    color: #ee3e38;
+}
+
+form.modalForm div input[type="text"]:hover {
+    border-bottom: solid 1px #ee3e38;
+}
+
+form.modalForm div input[type="color"] {
+    margin-right: 80px;
+}
+
+form.modalForm div.divBtnAdd {
+    text-align: center;
+    margin: 0;
 }
 
